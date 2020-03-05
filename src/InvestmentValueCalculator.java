@@ -17,15 +17,9 @@ public class InvestmentValueCalculator extends Application {
         LoanInvestCalculator calcPane = new LoanInvestCalculator();
 
         primaryStage.setScene(new Scene(calcPane, calcPane.getPrefWidth(), calcPane.getPrefHeight()));
-        primaryStage.setTitle("Investment-Value Calculator");//Title of the calculator
+        primaryStage.setTitle("Investment-Value Calculator");
         primaryStage.show();
     }
-
-    public static void main(String[] args) {
-
-        Application.launch(args);//launch the calculator
-    }
-
 
     private class LoanInvestCalculator extends GridPane {
 
@@ -74,15 +68,15 @@ public class InvestmentValueCalculator extends Application {
             add(buttons, 1, 4);
             btCalc.setOnAction(e-> calcFutureValue());
 
-            // Editing TextField settings
+            // text field settings
             TextField[] textFields = (TextField[])getArray(
-                    amountText, yearsText, rateText, futureValueText);//array of textfields
+                    amountText, yearsText, rateText, futureValueText);
 
             for (TextField tf : textFields) {
                 tf.setAlignment(Pos.BASELINE_RIGHT);//set alignment of text fields to right
             }
-            futureValueText.setDisable(true);//so that we cannot write in future value text field
-
+            // to disable the ability to write in the last text field
+            futureValueText.setDisable(true);
         }
 
         private Object[] getArray(Object... objects) {
@@ -93,13 +87,15 @@ public class InvestmentValueCalculator extends Application {
             return temp;
         }
 
+        // function to calculate the future value
         public void calcFutureValue() {
             double investmentAmount = Double.parseDouble(amountText.getText());
             double years = Double.parseDouble(yearsText.getText());
             double monthInterestRate = Double.parseDouble(rateText.getText()) / 12 / 100;
 
             double futureValue = investmentAmount * Math.pow(1 + monthInterestRate, years * 12);
-            futureValueText.setText(String.format("$%.2f", futureValue));//set text to calculated value
+            // translate the calculated value to a text
+            futureValueText.setText(String.format("$%.2f", futureValue));
         }
     }
 }
